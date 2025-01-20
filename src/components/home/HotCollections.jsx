@@ -10,7 +10,6 @@ const HotCollections = () => {
       "https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections"
     );
     setHotCollData(data);
-    console.log(data);
   }, []);
 
   useEffect(() => {
