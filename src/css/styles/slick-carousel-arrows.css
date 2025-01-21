@@ -1,0 +1,118 @@
+/* Arrows */
+@import url('https://fonts.googleapis.com/css2?family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.slick-prev,
+.slick-next
+{
+    font-size: 0;
+    line-height: 0;
+
+
+    position: absolute;
+    top: 50%;
+
+    display: block;
+    z-index: 1;
+
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+
+    cursor: pointer;
+
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus
+{
+    color: transparent;
+    outline: none;
+    background: transparent;
+}
+.slick-prev:hover:before,
+.slick-prev:focus:before,
+.slick-next:hover:before,
+.slick-next:focus:before
+{
+    opacity: 1;
+}
+.slick-prev.slick-disabled:before,
+.slick-next.slick-disabled:before
+{
+    opacity: .25;
+}
+
+.slick-prev:before,
+.slick-next:before
+{
+    font-family: 'tomorrow';
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    padding-left: 12px;
+    padding-right: 12px;
+
+
+
+    opacity: 1;
+    color: black;
+    background: white;
+    border: 1px solid #dddddd;
+    border-radius: 50%;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.slick-prev
+{
+    left: -10px;
+}
+[dir='rtl'] .slick-prev
+{
+    right: -10px;
+    left: auto;
+}
+.slick-prev:before
+{
+    content: '<';
+}
+[dir='rtl'] .slick-prev:before
+{
+    content: '>';
+}
+
+.slick-next
+{
+    right: -10px;
+}
+[dir='rtl'] .slick-next
+{
+    right: auto;
+    left: -10px;
+}
+.slick-next:before
+{
+    content: '>';
+}
+[dir='rtl'] .slick-next:before
+{
+    content: '<';
+}
+
+/* Slider Container */
+
+.slider-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
