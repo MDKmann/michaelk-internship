@@ -14150,6 +14150,12 @@ a.read_more i {
   z-index: 100;
   color: #0d0c22;
 }
+.de_countdown_skeleton {
+  position: absolute;
+  right: 20px;
+  padding: 1px 10px;
+  z-index: 100;
+}
 
 .de_countdown.bg-color-secondary {
   border: none;
