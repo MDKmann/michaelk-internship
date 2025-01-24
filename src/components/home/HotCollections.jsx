@@ -4,6 +4,7 @@ import axios from "axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import Skeleton from "../UI/Skeleton";
 
 const HotCollections = () => {
   const [hotCollData, setHotCollData] = useState([]);
@@ -63,39 +64,67 @@ const HotCollections = () => {
             </div>
           </div>
           <div className="slider-container">
-            <Slider {...slickSettings}>
-              {hotCollData.map((nft) => (
-                <div className="col" key={nft.id}>
-                  <div className="nft_coll">
-                    <div className="nft_wrap">
-                      <Link to="/item-details">
-                        <img
-                          src={nft.nftImage}
-                          className="lazy img-fluid"
-                          alt=""
-                        />
-                      </Link>
-                    </div>
-                    <div className="nft_coll_pp">
-                      <Link to="/author">
-                        <img
-                          className="lazy pp-coll"
-                          src={nft.authorImage}
-                          alt=""
-                        />
-                      </Link>
-                      <i className="fa fa-check"></i>
-                    </div>
-                    <div className="nft_coll_info">
-                      <Link to="/explore">
-                        <h4>{nft.title}</h4>
-                      </Link>
-                      <span>{nft.code}</span>
+            {hotCollData.length ? (
+              <Slider {...slickSettings}>
+                {hotCollData.map((nft, index) => (
+                  <div className="col" key={index}>
+                    <div className="nft_coll">
+                      <div className="nft_wrap">
+                        <Link to="/item-details">
+                          <img
+                            src={nft.nftImage}
+                            className="img-fluid"
+                            alt=""
+                          />
+                        </Link>
+                      </div>
+                      <div className="nft_coll_pp">
+                        <Link to="/author">
+                          <img
+                            className=" pp-coll"
+                            src={nft.authorImage}
+                            alt=""
+                          />
+                        </Link>
+                        <i className="fa fa-check"></i>
+                      </div>
+                      <div className="nft_coll_info">
+                        <Link to="/explore">
+                          <h4>{nft.title}</h4>
+                        </Link>
+                        <span>ERC-{nft.code}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </Slider>
+                ))}
+              </Slider>
+            ) : (
+              <Slider {...slickSettings}>
+                {new Array(8).fill(0).map((_, index) => (
+                  <div className="col" key={index}>
+                    <div className="nft_coll">
+                      <div className="nft_wrap">
+                        <Skeleton width="100%" height="200px" />
+                      </div>
+                      <div className="nft_coll_pp">
+                        <Skeleton
+                          width="50px"
+                          height="50px"
+                          borderRadius="50%"
+                        />
+                        <i className="fa fa-check"></i>
+                      </div>
+                      <div className="nft_coll_info">
+                        <Skeleton width="100px" height="20px" />
+
+                        <br />
+                        <Skeleton width="60px" height="20px" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </Slider>
+            )}
           </div>
         </div>
       </div>
