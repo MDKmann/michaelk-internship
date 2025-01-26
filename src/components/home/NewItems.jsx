@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import axios from "axios";
 import Slider from "react-slick";
 import Skeleton from "../UI/Skeleton";
+import CountDown from "../CountDown";
 
 const NewItems = () => {
   const [newItemsData, setNewItemsData] = useState([]);
@@ -48,6 +49,7 @@ const NewItems = () => {
     setNewItemsData(data);
   }, []);
 
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -84,7 +86,7 @@ const NewItems = () => {
                         </Link>
                       </div>
                       {newItem.expiryDate && (
-                        <div className="de_countdown">{newItem.expiryDate}</div>
+                        <CountDown expiryDate={newItem.expiryDate} />
                       )}
                       <div className="nft__item_wrap">
                         <div className="nft__item_extra">
