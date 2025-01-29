@@ -1,41 +1,52 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import CountDown from "../CountDown";
-import Skeleton from "../UI/Skeleton";
 import ItemCard from "../UI/ItemCard";
 import SkeletonCard from "../UI/SkeletonCard";
 
 const ExploreItems = () => {
   const [items, setItems] = useState([]);
+  const [filterValue, setFilterValue] = useState("");
+  const [apiValue, setApiValue] = useState(
+    "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore"
+  );
   const [displayedItems, setDisplayedItems] = useState(items);
-  const [visibleItemsCount, setVisibleItemsCount] = useState(8);
+  const visibleItemsCount = useRef(8);
+
+  const handleFilter = (event) => {
+    let filter = event.target.value;
+    setFilterValue(filter);
+    setApiValue(
+      `https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=${filter}`
+    );
+  };
 
   const fetchItemsData = useCallback(async () => {
-    const { data } = await axios.get(
-      "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore"
-    );
+    const { data } = await axios.get(apiValue);
     setItems(data);
-    // sets visible items shown to 8 on initial render
-    setDisplayedItems(data.slice(8));
-  }, []);
+    // sets visible items shown from 0 to 8 range, (shorthand caused bug) on initial render
+    setDisplayedItems(data.slice(0, visibleItemsCount.current));
+  }, [apiValue]);
 
   const handleLoadMore = () => {
     // increases visible items by previous amount + 4
-    setVisibleItemsCount((prevCount) => prevCount + 4);
+    visibleItemsCount.current = visibleItemsCount.current + 4;
+    console.log(visibleItemsCount);
     // updates the amount of visible items shown
-    setDisplayedItems(items.slice(0, visibleItemsCount));
+    setDisplayedItems(items.slice(0, visibleItemsCount.current));
   };
 
   useEffect(() => {
     fetchItemsData();
-    handleLoadMore();
-  }, []);
+  }, [apiValue]);
 
   return (
     <>
       <div>
-        <select id="filter-items" defaultValue="">
+        <select
+          id="filter-items"
+          value={filterValue}
+          onChange={(event) => handleFilter(event)}
+        >
           <option value="">Default</option>
           <option value="price_low_to_high">Price, Low to High</option>
           <option value="price_high_to_low">Price, High to Low</option>
