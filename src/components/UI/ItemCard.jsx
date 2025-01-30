@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import CountDown from "../CountDown";
 
-const ItemCard = ({ item }) => {
+const ItemCard = ({ item, authorImage  }) => {
+
   return (
     <div className="nft__item">
       <div className="author_list_pp">
@@ -12,7 +13,7 @@ const ItemCard = ({ item }) => {
           data-bs-placement="top"
           title={item.authorId}
         >
-          <img className="lazy" src={item.authorImage} alt="" />
+          <img className="lazy" src={item.authorImage || authorImage} alt="" />
           <i className="fa fa-check"></i>
         </Link>
       </div>
@@ -36,16 +37,12 @@ const ItemCard = ({ item }) => {
           </div>
         </div>
 
-        <Link to="/item-details">
-          <img
-            src={item.nftImage}
-            className="lazy nft__item_preview"
-            alt=""
-          />
+        <Link to={`/item-details/${item.nftId}`}>
+          <img src={item.nftImage} className="lazy nft__item_preview" alt="" />
         </Link>
       </div>
       <div className="nft__item_info">
-        <Link to="/item-details">
+        <Link to={`/item-details/${item.nftId}`}>
           <h4>{item.title}</h4>
         </Link>
         <div className="nft__item_price">{item.price} ETH</div>
