@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import AuthorBanner from "../images/author_banner.jpg";
 import AuthorItems from "../components/author/AuthorItems";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+import FollowButton from "../components/UI/FollowButton";
+import Skeleton from "../components/UI/Skeleton";
 
 const Author = () => {
   //Pass authorId from Link/Route to Author component to make fetchAuthorData dynamic
@@ -40,41 +42,64 @@ const Author = () => {
                 <div className="d_profile de-flex">
                   <div className="de-flex-col">
                     <div className="profile_avatar">
-                      <img src={author.authorImage} alt="" />
+                      {author ? (
+                        <>
+                          <img src={author.authorImage} alt="" />
+                          <i className="fa fa-check"></i>
+                        </>
+                      ) : (
+                        <Skeleton
+                          width="150px"
+                          height="150px"
+                          borderRadius="50%"
+                        />
+                      )}
 
-                      <i className="fa fa-check"></i>
                       <div className="profile_name">
                         <h4>
-                          {author.authorName}
-                          <span className="profile_username">
-                            @{author.tag}
-                          </span>
-                          <span id="wallet" className="profile_wallet">
-                            {author.address}
-                          </span>
-                          <button id="btn_copy" title="Copy Text">
-                            Copy
-                          </button>
+                          {author ? (
+                            <>
+                              {author.authorName}
+                              <span className="profile_username">
+                                @{author.tag}
+                              </span>
+                              <span id="wallet" className="profile_wallet">
+                                {author.address}
+                              </span>
+                              <button id="btn_copy" title="Copy Text">
+                                Copy
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <Skeleton width="250px" height="50px" />
+                              <span className="profile_username">
+                                <Skeleton width="150px" height="20px" />
+                              </span>
+                              <span id="wallet" className="profile_wallet">
+                                <Skeleton width="250px" height="20px" />
+                              </span>
+                            </>
+                          )}
                         </h4>
                       </div>
                     </div>
                   </div>
                   <div className="profile_follow de-flex">
-                    <div className="de-flex-col">
-                      <div className="profile_follower">
-                        {author.followers} followers
+                    {author ? (
+                      <FollowButton followers={author.followers} />
+                    ) : (
+                      <div className="de-flex-col">
+                        <Skeleton width="250px" height="50px" />
                       </div>
-                      <Link to="#" className="btn-main">
-                        Follow
-                      </Link>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>
 
               <div className="col-md-12">
                 <div className="de_tab tab_simple">
-                  <AuthorItems />
+                  <AuthorItems author={author} />
                 </div>
               </div>
             </div>
