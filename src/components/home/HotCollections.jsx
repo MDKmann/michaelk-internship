@@ -5,8 +5,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Skeleton from "../UI/Skeleton";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const HotCollections = () => {
+  AOS.init();
   const [hotCollData, setHotCollData] = useState([]);
 
   const slickSettings = {
@@ -56,7 +59,7 @@ const HotCollections = () => {
   return (
     <section id="section-collections" className="no-bottom">
       <div className="container">
-        <div className="row">
+        <div className="row" data-aos="fadeIn">
           <div className="col-lg-12">
             <div className="text-center">
               <h2>Hot Collections</h2>
