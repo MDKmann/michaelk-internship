@@ -4,8 +4,11 @@ import axios from "axios";
 import Slider from "react-slick";
 import ItemCard from "../UI/ItemCard";
 import SkeletonCard from "../UI/SkeletonCard";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const NewItems = () => {
+  AOS.init();
   const [newItemsData, setNewItemsData] = useState([]);
 
   const slickSettings = {
@@ -55,10 +58,10 @@ const NewItems = () => {
   return (
     <section id="section-items" className="no-bottom">
       <div className="container">
-        <div className="row">
+        <div className="row" data-aos="fadeIn">
           <div className="col-lg-12">
             <div className="text-center">
-              <h2>New Items</h2>
+              <h2 data-aos="fadeIn">New Items</h2>
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
