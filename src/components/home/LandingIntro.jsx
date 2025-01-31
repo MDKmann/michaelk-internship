@@ -19,7 +19,7 @@ const LandingIntro = () => {
                 <h4 className="" data-aos="fadeInUp">
                   Set up your wallet
                 </h4>
-                <p data-aos="fadeInUp" data-aos-delay="25">
+                <p data-aos="fadeInUp" data-aos-delay="250">
                   Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                   accusantium doloremque laudantium, totam rem.
                 </p>
@@ -37,7 +37,7 @@ const LandingIntro = () => {
                 <h4 className="" data-aos="fadeInUp">
                   Add your NFT's
                 </h4>
-                <p data-aos="fadeInUp" data-aos-delay="25">
+                <p data-aos="fadeInUp" data-aos-delay="250">
                   Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                   accusantium doloremque laudantium, totam rem.
                 </p>
@@ -55,7 +55,7 @@ const LandingIntro = () => {
                 <h4 className="" data-aos="fadeInUp">
                   Sell your NFT's
                 </h4>
-                <p data-aos="fadeInUp" data-aos-delay="25">
+                <p data-aos="fadeInUp" data-aos-delay="250">
                   Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                   accusantium doloremque laudantium, totam rem.
                 </p>
