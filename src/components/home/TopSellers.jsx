@@ -2,8 +2,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Skeleton from "../UI/Skeleton";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const TopSellers = () => {
+  AOS.init();
   const [topSellersData, setTopSellersData] = useState([]);
 
   const fetchTopSellers = useCallback(async () => {
@@ -20,7 +23,7 @@ const TopSellers = () => {
   return (
     <section id="section-popular" className="pb-5">
       <div className="container">
-        <div className="row">
+        <div className="row" data-aos="fadeIn">
           <div className="col-lg-12">
             <div className="text-center">
               <h2>Top Sellers</h2>
@@ -28,7 +31,7 @@ const TopSellers = () => {
             </div>
           </div>
           <div className="col-md-12">
-            <ol className="author_list">
+            <ol className="author_list" data-aos="fadeIn" data-aos-delay="150">
               {topSellersData.length ? (
                 <>
                   {topSellersData.map((seller, index) => (
