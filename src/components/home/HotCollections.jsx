@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import OwlCarousel from "react-owl-carousel";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 import Skeleton from "../UI/Skeleton";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -10,36 +12,49 @@ const HotCollections = () => {
   AOS.init();
   const [hotCollData, setHotCollData] = useState([]);
 
-  const options = {
-    loop: true,
-    margin: 10,
-    nav: true,
-    responsive: {
-      0: {
-        items: 1,
+  const slickSettings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+        },
       },
-      600: {
-        items: 2,
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+        },
       },
-      900: {
-        items: 3,
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+        },
       },
-      1200: {
-        items: 4,
-      },
-    },
+    ],
   };
 
-   const getExploreData = async () => {
-     const response = await axios.get(
-       `https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections`
-     );
-     setHotCollData(response.data);
-   };
+  const fetchData = useCallback(async () => {
+    const { data } = await axios.get(
+      "https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections"
+    );
+    setHotCollData(data);
+  }, []);
 
   useEffect(() => {
-    getExploreData();
-  }, []);
+    fetchData();
+  }, [fetchData]);
 
   return (
     <section id="section-collections" className="no-bottom">
@@ -53,7 +68,7 @@ const HotCollections = () => {
           </div>
           <div className="slider-container">
             {hotCollData.length ? (
-              <OwlCarousel className="owl-theme" {...options}>
+              <Slider {...slickSettings}>
                 {hotCollData.map((nft, index) => (
                   <div className="col" key={index}>
                     <div className="nft_coll">
@@ -67,7 +82,7 @@ const HotCollections = () => {
                         </Link>
                       </div>
                       <div className="nft_coll_pp">
-                        <Link to={`/author/${nft.authorId}`}>
+                        <Link to="/author">
                           <img
                             className=" pp-coll"
                             src={nft.authorImage}
@@ -85,9 +100,9 @@ const HotCollections = () => {
                     </div>
                   </div>
                 ))}
-              </OwlCarousel>
+              </Slider>
             ) : (
-              <OwlCarousel className="owl-theme" {...options}>
+              <Slider {...slickSettings}>
                 {new Array(8).fill(0).map((_, index) => (
                   <div className="col" key={index}>
                     <div className="nft_coll">
@@ -111,7 +126,7 @@ const HotCollections = () => {
                     </div>
                   </div>
                 ))}
-              </OwlCarousel>
+              </Slider>
             )}
           </div>
         </div>
